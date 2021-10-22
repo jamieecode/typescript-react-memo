@@ -1,25 +1,72 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { nanoid } from "nanoid";
+import MemoList from "./components/MemoList";
+import Search from "./components/Search";
+import Header from "./components/Header";
+import styled from "styled-components";
 
-function App() {
+const StyledContainer = styled.section`
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  min-height: 100vh;
+`;
+
+const App = () => {
+  const [memos, setMemos] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [openPalette, setOpenPalette] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("");
+
+  useEffect(() => {
+    const savedMemos = JSON.parse(localStorage.getItem("react-memo-data"));
+
+    if (savedMemos) {
+      setMemos(savedMemos);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("react-memo-data", JSON.stringify(memos));
+  }, [memos]);
+
+  const addMemo = (text, color) => {
+    const date = new Date();
+    const newMemo = {
+      id: nanoid(),
+      text,
+      date: date.toLocaleDateString(),
+      color,
+    };
+    const newMemos = [...memos, newMemo];
+    setMemos(newMemos);
+  };
+
+  const deleteMemo = (id) => {
+    const newMemos = memos.filter((memo) => memo.id !== id);
+    setMemos(newMemos);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledContainer>
+      <Header
+        handleOpenPalette={setOpenPalette}
+        openPalette={openPalette}
+        handleSelectedColor={setSelectedColor}
+      />
+      <Search handleSearchMemo={setSearchText} />
+      <MemoList
+        memos={memos.filter((memo) =>
+          memo.text.toLowerCase().includes(searchText)
+        )}
+        handleAddMemo={addMemo}
+        handleDeleteMemo={deleteMemo}
+        selectedColor={selectedColor}
+      />
+    </StyledContainer>
   );
-}
+};
 
 export default App;
