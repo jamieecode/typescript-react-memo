@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { colorContext } from "../contexts/ColorContext";
 import styled from "styled-components";
 import { AiOutlineSave } from "react-icons/ai";
 
@@ -37,8 +38,9 @@ const StyledSaveIcon = styled(AiOutlineSave)`
   cursor: pointer;
 `;
 
-const AddMemo = ({ handleAddMemo, selectedColor }) => {
+const AddMemo = ({ handleAddMemo }) => {
   const [memoText, setMemoText] = useState("");
+  const { selectedColor } = useContext(colorContext);
   const characterLimit = 200;
   const handleChange = (e) => {
     if (characterLimit - e.target.value.length >= 0)

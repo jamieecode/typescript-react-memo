@@ -4,6 +4,7 @@ import MemoList from "./components/MemoList";
 import Search from "./components/Search";
 import Header from "./components/Header";
 import styled from "styled-components";
+import { colorContext } from "./contexts/ColorContext";
 
 const StyledContainer = styled.section`
   max-width: 960px;
@@ -51,20 +52,17 @@ const App = () => {
 
   return (
     <StyledContainer>
-      <Header
-        handleOpenPalette={setOpenPalette}
-        openPalette={openPalette}
-        handleSelectedColor={setSelectedColor}
-      />
-      <Search handleSearchMemo={setSearchText} />
-      <MemoList
-        memos={memos.filter((memo) =>
-          memo.text.toLowerCase().includes(searchText)
-        )}
-        handleAddMemo={addMemo}
-        handleDeleteMemo={deleteMemo}
-        selectedColor={selectedColor}
-      />
+      <colorContext.Provider value={{ selectedColor, setSelectedColor }}>
+        <Header handleOpenPalette={setOpenPalette} openPalette={openPalette} />
+        <Search handleSearchMemo={setSearchText} />
+        <MemoList
+          memos={memos.filter((memo) =>
+            memo.text.toLowerCase().includes(searchText)
+          )}
+          handleAddMemo={addMemo}
+          handleDeleteMemo={deleteMemo}
+        />
+      </colorContext.Provider>
     </StyledContainer>
   );
 };
