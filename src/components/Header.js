@@ -17,19 +17,12 @@ const StyledPlusIcon = styled(AiOutlinePlusCircle)`
   padding-left: 0.5em;
 `;
 
-const Header = ({
-  handleOpenPalette,
-  openPalette,
-  handleSelectedColor,
-  selectedColor,
-}) => {
+const Header = ({ handleOpenPalette, openPalette }) => {
   return (
     <StyledHeader>
       <h1>Memo</h1>
       <StyledPlusIcon onClick={() => handleOpenPalette(!openPalette)} />
-      {openPalette && (
-        <ColorPalette handleSelectedColor={handleSelectedColor} />
-      )}
+      {openPalette && <ColorPalette />}
     </StyledHeader>
   );
 };

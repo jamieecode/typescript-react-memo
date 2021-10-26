@@ -1,4 +1,5 @@
-import React from "react";
+import { useContext } from "react";
+import { colorContext } from "../contexts/ColorContext";
 import styled from "styled-components";
 
 const StyledPalette = styled.div`
@@ -10,15 +11,16 @@ const StyledPalette = styled.div`
   cursor: pointer;
 `;
 
-const ColorPalette = ({ handleSelectedColor }) => {
+const ColorPalette = () => {
   const colors = ["#F9F871", "#9BDE7E", "#4BBC8E", "#039590", "#1C6E7D"];
+  const { setSelectedColor } = useContext(colorContext);
   return (
     <>
       {colors.map((color) => (
         <StyledPalette
           key={color}
           color={color}
-          onClick={() => handleSelectedColor(color)}
+          onClick={() => setSelectedColor(color)}
         />
       ))}
     </>
