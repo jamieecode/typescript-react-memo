@@ -12,6 +12,7 @@ const StyledMemo = styled.article`
   flex-direction: column;
   justify-content: space-between;
   white-space: pre-wrap;
+
   div {
     display: flex;
     align-items: center;
