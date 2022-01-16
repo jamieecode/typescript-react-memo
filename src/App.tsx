@@ -4,7 +4,7 @@ import MemoList from "./components/MemoList";
 import Search from "./components/Search";
 import Header from "./components/Header";
 import styled from "styled-components";
-import { colorContext } from "./contexts/ColorContext";
+import { ColorContext } from "./contexts/ColorContext";
 
 const StyledContainer = styled.section`
   max-width: 960px;
@@ -15,14 +15,32 @@ const StyledContainer = styled.section`
   min-height: 100vh;
 `;
 
+export interface IState {
+  memos: {
+    id: string;
+    text: string;
+    date: string;
+    color?: string;
+  }[];
+}
+
 const App = () => {
-  const [memos, setMemos] = useState([]);
+  const [memos, setMemos] = useState<IState["memos"]>([
+    {
+      id: "1234",
+      text: "coding along",
+      date: "2021-01-17",
+      color: "#9BDE7E",
+    },
+  ]);
   const [searchText, setSearchText] = useState("");
   const [openPalette, setOpenPalette] = useState(false);
   const [selectedColor, setSelectedColor] = useState("");
 
   useEffect(() => {
-    const savedMemos = JSON.parse(localStorage.getItem("react-memo-data"));
+    const savedMemos = JSON.parse(
+      localStorage.getItem("react-memo-data") || ""
+    );
 
     if (savedMemos) {
       setMemos(savedMemos);
@@ -33,7 +51,7 @@ const App = () => {
     localStorage.setItem("react-memo-data", JSON.stringify(memos));
   }, [memos]);
 
-  const addMemo = (text, color) => {
+  const addMemo = ({ text, color }: any) => {
     const date = new Date();
     const newMemo = {
       id: nanoid(),
@@ -45,14 +63,14 @@ const App = () => {
     setMemos(newMemos);
   };
 
-  const deleteMemo = (id) => {
+  const deleteMemo = (id: string) => {
     const newMemos = memos.filter((memo) => memo.id !== id);
     setMemos(newMemos);
   };
 
   return (
     <StyledContainer>
-      <colorContext.Provider value={{ selectedColor, setSelectedColor }}>
+      <ColorContext.Provider value={{ selectedColor, setSelectedColor }}>
         <Header handleOpenPalette={setOpenPalette} openPalette={openPalette} />
         <Search handleSearchMemo={setSearchText} />
         <MemoList
@@ -62,7 +80,7 @@ const App = () => {
           handleAddMemo={addMemo}
           handleDeleteMemo={deleteMemo}
         />
-      </colorContext.Provider>
+      </ColorContext.Provider>
     </StyledContainer>
   );
 };

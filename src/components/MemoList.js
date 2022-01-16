@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Memo from "./Memo";
 import AddMemo from "./AddMemo";
 import styled from "styled-components";
-import { colorContext } from "../contexts/ColorContext";
+import { ColorContext } from "../contexts/ColorContext";
 
 const StyledMemoContainer = styled.section`
   display: grid;
@@ -11,7 +11,7 @@ const StyledMemoContainer = styled.section`
 `;
 
 const MemoList = ({ memos, handleAddMemo, handleDeleteMemo }) => {
-  const { selectedColor } = useContext(colorContext);
+  const { selectedColor } = useContext(ColorContext);
   return (
     <StyledMemoContainer>
       {selectedColor && <AddMemo handleAddMemo={handleAddMemo} />}

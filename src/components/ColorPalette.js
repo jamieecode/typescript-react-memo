@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { colorContext } from "../contexts/ColorContext";
+import { ColorContext } from "../contexts/ColorContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
@@ -15,7 +15,7 @@ const StyledPalette = styled(motion.div)`
 
 const ColorPalette = () => {
   const colors = ["#F9F871", "#9BDE7E", "#4BBC8E", "#039590", "#1C6E7D"];
-  const { setSelectedColor } = useContext(colorContext);
+  const { setSelectedColor } = useContext(ColorContext);
 
   return (
     <>
