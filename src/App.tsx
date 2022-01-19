@@ -51,13 +51,13 @@ const App = () => {
     localStorage.setItem("react-memo-data", JSON.stringify(memos));
   }, [memos]);
 
-  const addMemo = ({ text, color }: any) => {
+  const addMemo = (text: string, color: string): void => {
     const date = new Date();
     const newMemo = {
       id: nanoid(),
-      text,
+      text: text,
       date: date.toLocaleDateString(),
-      color,
+      color: color,
     };
     const newMemos = [...memos, newMemo];
     setMemos(newMemos);

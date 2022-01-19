@@ -3,6 +3,7 @@ import Memo from "./Memo";
 import AddMemo from "./AddMemo";
 import styled from "styled-components";
 import { ColorContext } from "../contexts/ColorContext";
+import { IState } from "App";
 
 const StyledMemoContainer = styled.section`
   display: grid;
@@ -10,7 +11,13 @@ const StyledMemoContainer = styled.section`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 `;
 
-const MemoList = ({ memos, handleAddMemo, handleDeleteMemo }) => {
+interface Props {
+  memos: IState["memos"];
+  handleAddMemo: (text: string, color: string) => void;
+  handleDeleteMemo: (id: string) => void;
+}
+
+const MemoList = ({ memos, handleAddMemo, handleDeleteMemo }: Props) => {
   const { selectedColor } = useContext(ColorContext);
   return (
     <StyledMemoContainer>

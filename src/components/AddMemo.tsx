@@ -34,16 +34,20 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
+interface Props {
+  handleAddMemo: (text: string, color: string) => void;
+}
+
 const StyledSaveIcon = styled(AiOutlineSave)`
   font-size: 1rem;
   cursor: pointer;
 `;
 
-const AddMemo = ({ handleAddMemo }) => {
+const AddMemo = ({ handleAddMemo }: Props) => {
   const [memoText, setMemoText] = useState("");
   const { selectedColor } = useContext(ColorContext);
   const characterLimit = 200;
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (characterLimit - e.target.value.length >= 0)
       setMemoText(e.target.value);
   };
@@ -59,8 +63,8 @@ const AddMemo = ({ handleAddMemo }) => {
     <StyledMemo color={selectedColor}>
       <StyledTextArea
         placeholder="Add New Memo..."
-        cols="10"
-        rows="8"
+        cols={10}
+        rows={8}
         value={memoText}
         onChange={handleChange}
       ></StyledTextArea>
