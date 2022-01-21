@@ -26,7 +26,11 @@ const StyledDeleteIcon = styled(AiOutlineSearch)`
   font-size: 1.7rem;
 `;
 
-const Search = ({ handleSearchMemo }) => {
+interface Props {
+  handleSearchMemo: (text: string) => void;
+}
+
+const Search = ({ handleSearchMemo }: Props) => {
   return (
     <StyledInputContainer>
       <StyledInput

@@ -22,7 +22,15 @@ const StyledDeleteIcon = styled(AiOutlineDelete)`
   font-size: 1rem;
 `;
 
-const Memo = ({ id, text, date, color, handleDeleteMemo }) => {
+interface Props {
+  id: string;
+  text: string;
+  date: string;
+  color?: string;
+  handleDeleteMemo: (id: string) => void;
+}
+
+const Memo = ({ id, text, date, color, handleDeleteMemo }: Props) => {
   return (
     <StyledMemo color={color}>
       <span>{text}</span>
