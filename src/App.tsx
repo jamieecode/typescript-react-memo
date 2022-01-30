@@ -68,6 +68,14 @@ const App = () => {
     setMemos(newMemos);
   };
 
+  const editMemo = (id: string, text: string) => {
+    const newMemos = memos.map((memo) => ({
+      ...memo,
+      text: memo.id === id ? text : memo.text,
+    }));
+    setMemos(newMemos);
+  };
+
   return (
     <StyledContainer>
       <ColorContext.Provider value={{ selectedColor, setSelectedColor }}>
@@ -79,6 +87,7 @@ const App = () => {
           )}
           handleAddMemo={addMemo}
           handleDeleteMemo={deleteMemo}
+          handleEditMemo={editMemo}
         />
       </ColorContext.Provider>
     </StyledContainer>

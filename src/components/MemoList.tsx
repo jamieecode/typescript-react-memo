@@ -15,9 +15,15 @@ interface Props {
   memos: IState["memos"];
   handleAddMemo: (text: string, color: string) => void;
   handleDeleteMemo: (id: string) => void;
+  handleEditMemo: (id: string, text: string) => void;
 }
 
-const MemoList = ({ memos, handleAddMemo, handleDeleteMemo }: Props) => {
+const MemoList = ({
+  memos,
+  handleAddMemo,
+  handleDeleteMemo,
+  handleEditMemo,
+}: Props) => {
   const { selectedColor } = useContext(ColorContext);
   return (
     <StyledMemoContainer>
@@ -30,6 +36,7 @@ const MemoList = ({ memos, handleAddMemo, handleDeleteMemo }: Props) => {
           date={memo.date}
           color={memo.color}
           handleDeleteMemo={handleDeleteMemo}
+          handleEditMemo={handleEditMemo}
         />
       ))}
     </StyledMemoContainer>
