@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import styled from "styled-components";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineSave } from "react-icons/ai";
 
 const StyledMemo = styled.article`
   background-color: ${(props) => props.color};
@@ -20,30 +20,50 @@ const StyledMemo = styled.article`
 `;
 
 const StyledButtons = styled.div`
-  width: 3.5rem;
+  width: 3.8rem;
+`;
+
+const StyledSaveIcon = styled(AiOutlineSave)`
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  &:hover {
+    transform: translate(0, -3px);
+    transition: 0.2s linear;
+  }
 `;
 
 const StyledEditIcon = styled(AiOutlineEdit)`
   cursor: pointer;
   font-size: 1.2rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
+  width: 1.7rem;
+  height: 1.7rem;
   &:hover {
-    background-color: white;
-    transition: 1s;
+    transform: translate(0, -3px);
+    transition: 0.2s linear;
   }
 `;
 
 const StyledDeleteIcon = styled(AiOutlineDelete)`
   cursor: pointer;
   font-size: 1rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
+  width: 1.7rem;
+  height: 1.7rem;
   &:hover {
-    background-color: white;
-    transition: 1s;
+    transform: translate(0, -3px);
+    transition: 0.2s linear;
+  }
+`;
+
+const StyledTextArea = styled.textarea`
+  border: none;
+  resize: none;
+  opacity: 0.8;
+  font-family: inherit;
+  font-size: inherit;
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -67,13 +87,17 @@ const Memo = ({
   const [editMemo, setEditMemo] = useState(false);
   const [newMemoText, setNewMemoText] = useState(text);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewMemoText(e.target.value);
   };
   return (
     <StyledMemo color={color}>
       {editMemo ? (
-        <input type="text" onChange={handleInputChange} defaultValue={text} />
+        <StyledTextArea
+          onChange={handleInputChange}
+          defaultValue={text}
+          autoFocus
+        ></StyledTextArea>
       ) : (
         <span>{text}</span>
       )}
@@ -81,16 +105,14 @@ const Memo = ({
       <div>
         <small>{date}</small>
         {editMemo ? (
-          <button
+          <StyledSaveIcon
             onClick={() => {
               if (newMemoText.length > 0) {
                 handleEditMemo(id, newMemoText);
                 setEditMemo(false);
               }
             }}
-          >
-            save
-          </button>
+          />
         ) : (
           <StyledButtons>
             <StyledEditIcon

@@ -34,14 +34,21 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
+const StyledSaveIcon = styled(AiOutlineSave)`
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  &:hover {
+    transform: translate(0, -3px);
+    transition: 0.2s linear;
+  }
+`;
+
 interface Props {
   handleAddMemo: (text: string, color: string) => void;
 }
-
-const StyledSaveIcon = styled(AiOutlineSave)`
-  font-size: 1rem;
-  cursor: pointer;
-`;
 
 const AddMemo = ({ handleAddMemo }: Props) => {
   const [memoText, setMemoText] = useState("");

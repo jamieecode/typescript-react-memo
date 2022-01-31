@@ -18,6 +18,21 @@ const StyledPlusButton = styled(motion.button)`
   margin-left: 0.5em;
   background: none;
   border: none;
+  animation: pulse 0.9s infinite ease-in-out;
+  &:hover {
+    animation-play-state: paused;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `;
 
 const Header = ({ handleOpenPalette, openPalette }) => {
