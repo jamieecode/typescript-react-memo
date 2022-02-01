@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { ModalContext } from "../contexts/ModalContext";
 import styled from "styled-components";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSave } from "react-icons/ai";
 
@@ -76,58 +76,58 @@ interface Props {
   handleEditMemo: (id: string, text: string) => void;
 }
 
-const Memo = ({
-  id,
-  text,
-  date,
-  color,
-  handleDeleteMemo,
-  handleEditMemo,
-}: Props) => {
+const Memo = ({ id, text, date, color, handleEditMemo }: Props) => {
   const [editMemo, setEditMemo] = useState(false);
   const [newMemoText, setNewMemoText] = useState(text);
+  const { setOpenModal, setConfirmDelete } = useContext(ModalContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewMemoText(e.target.value);
   };
-  return (
-    <StyledMemo color={color}>
-      {editMemo ? (
-        <StyledTextArea
-          onChange={handleInputChange}
-          defaultValue={text}
-          autoFocus
-        ></StyledTextArea>
-      ) : (
-        <span>{text}</span>
-      )}
 
-      <div>
-        <small>{date}</small>
+  return (
+    <>
+      <StyledMemo color={color}>
         {editMemo ? (
-          <StyledSaveIcon
-            onClick={() => {
-              if (newMemoText.length > 0) {
-                handleEditMemo(id, newMemoText);
-                setEditMemo(false);
-              }
-            }}
-          />
+          <StyledTextArea
+            onChange={handleInputChange}
+            defaultValue={text}
+            autoFocus
+          ></StyledTextArea>
         ) : (
-          <StyledButtons>
-            <StyledEditIcon
+          <span>{text}</span>
+        )}
+
+        <div>
+          <small>{date}</small>
+          {editMemo ? (
+            <StyledSaveIcon
               onClick={() => {
-                setEditMemo(true);
+                if (newMemoText.length > 0) {
+                  handleEditMemo(id, newMemoText);
+                  setEditMemo(false);
+                }
               }}
             />
-            <StyledDeleteIcon
-              onClick={() => handleDeleteMemo(id)}
-              size="1.3em"
-            />
-          </StyledButtons>
-        )}
-      </div>
-    </StyledMemo>
+          ) : (
+            <StyledButtons>
+              <StyledEditIcon
+                onClick={() => {
+                  setEditMemo(true);
+                }}
+              />
+              <StyledDeleteIcon
+                onClick={() => {
+                  setConfirmDelete(id);
+                  setOpenModal(true);
+                }}
+                size="1.3em"
+              />
+            </StyledButtons>
+          )}
+        </div>
+      </StyledMemo>
+    </>
   );
 };
 

@@ -5,6 +5,8 @@ import Search from "./components/Search";
 import Header from "./components/Header";
 import styled from "styled-components";
 import { ColorContext } from "./contexts/ColorContext";
+import { ModalContext } from "./contexts/ModalContext";
+import Modal from "components/Modal";
 
 const StyledContainer = styled.section`
   max-width: 960px;
@@ -25,17 +27,12 @@ export interface IState {
 }
 
 const App = () => {
-  const [memos, setMemos] = useState<IState["memos"]>([
-    {
-      id: "1234",
-      text: "coding along",
-      date: "2021-01-17",
-      color: "#9BDE7E",
-    },
-  ]);
+  const [memos, setMemos] = useState<IState["memos"]>([]);
   const [searchText, setSearchText] = useState("");
   const [openPalette, setOpenPalette] = useState(false);
   const [selectedColor, setSelectedColor] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState("");
 
   useEffect(() => {
     const savedMemos = JSON.parse(
@@ -79,16 +76,24 @@ const App = () => {
   return (
     <StyledContainer>
       <ColorContext.Provider value={{ selectedColor, setSelectedColor }}>
-        <Header handleOpenPalette={setOpenPalette} openPalette={openPalette} />
-        <Search handleSearchMemo={setSearchText} />
-        <MemoList
-          memos={memos.filter((memo) =>
-            memo.text.toLowerCase().includes(searchText)
-          )}
-          handleAddMemo={addMemo}
-          handleDeleteMemo={deleteMemo}
-          handleEditMemo={editMemo}
-        />
+        <ModalContext.Provider
+          value={{ openModal, setOpenModal, confirmDelete, setConfirmDelete }}
+        >
+          <Header
+            handleOpenPalette={setOpenPalette}
+            openPalette={openPalette}
+          />
+          <Search handleSearchMemo={setSearchText} />
+          {openModal && <Modal handleDeleteMemo={deleteMemo} />}
+          <MemoList
+            memos={memos.filter((memo) =>
+              memo.text.toLowerCase().includes(searchText)
+            )}
+            handleAddMemo={addMemo}
+            handleDeleteMemo={deleteMemo}
+            handleEditMemo={editMemo}
+          />
+        </ModalContext.Provider>
       </ColorContext.Provider>
     </StyledContainer>
   );

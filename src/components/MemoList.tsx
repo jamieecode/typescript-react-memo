@@ -25,9 +25,11 @@ const MemoList = ({
   handleEditMemo,
 }: Props) => {
   const { selectedColor } = useContext(ColorContext);
+
   return (
     <StyledMemoContainer>
       {selectedColor && <AddMemo handleAddMemo={handleAddMemo} />}
+
       {memos.map((memo) => (
         <Memo
           key={memo.id}
