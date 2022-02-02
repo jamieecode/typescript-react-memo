@@ -3,10 +3,10 @@ import { nanoid } from "nanoid";
 import MemoList from "./components/MemoList";
 import Search from "./components/Search";
 import Header from "./components/Header";
+import Modal from "components/Modal";
 import styled from "styled-components";
 import { ColorContext } from "./contexts/ColorContext";
 import { ModalContext } from "./contexts/ModalContext";
-import Modal from "components/Modal";
 
 const StyledContainer = styled.section`
   max-width: 960px;

@@ -7,3 +7,12 @@
 body {
   font-family: "Roboto Slab", serif;
 }
+
+button {
+  background: none;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}

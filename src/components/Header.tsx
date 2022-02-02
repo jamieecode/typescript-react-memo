@@ -13,11 +13,8 @@ const StyledHeader = styled.header`
 `;
 
 const StyledPlusButton = styled(motion.button)`
-  cursor: pointer;
   font-size: 2rem;
   margin-left: 0.5em;
-  background: none;
-  border: none;
   animation: pulse 0.9s infinite ease-in-out;
   &:hover {
     animation-play-state: paused;
@@ -35,7 +32,12 @@ const StyledPlusButton = styled(motion.button)`
   }
 `;
 
-const Header = ({ handleOpenPalette, openPalette }) => {
+interface Props {
+  openPalette: boolean;
+  handleOpenPalette: (p: boolean) => void;
+}
+
+const Header = ({ handleOpenPalette, openPalette }: Props) => {
   return (
     <StyledHeader>
       <h1>Memo</h1>

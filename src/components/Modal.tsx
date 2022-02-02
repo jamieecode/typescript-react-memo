@@ -24,6 +24,9 @@ const StyledModal = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  p {
+    font-size: 1.1rem;
+  }
   div {
     display: flex;
     justify-content: flex-end;
@@ -32,12 +35,12 @@ const StyledModal = styled.section`
 `;
 
 const StyledCloseIcon = styled(MdClose)`
-  font-size: 1.6rem;
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   &:hover {
     cursor: pointer;
-    background-color: grey;
+    transform: scale(1.1);
+    transition: 0.3s;
   }
 `;
 
@@ -47,11 +50,16 @@ const StyledModalContent = styled.article`
 
 const StyledButtons = styled.div`
   button {
-    padding: 0.5em 1em;
-    margin: 2em auto;
+    padding: 0.6em 1.2em;
+    margin: 2.5em auto 0;
+    background-color: #a0c7de;
+    border-radius: 0.5em;
+    font-weight: 600;
   }
   button: hover {
-    cursor: pointer;
+    background-color: black;
+    color: #a0c7de;
+    transition: 0.3s;
   }
 `;
 
